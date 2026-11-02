@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Npgsql;
 using PTirta.Data;
 using PTirta.Models;
 
@@ -10,22 +8,53 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Database Context
 builder.Services.AddDbContext<PTirtaContext>(options =>
-options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 
-builder.Services.AddIdentity<Users, IdentityRole>(Options =>
+// ASP.NET Core Identity
+builder.Services.AddIdentity<Users, IdentityRole>(options =>
 {
-    Options.Password.RequireNonAlphanumeric = false;
-    Options.Password.RequiredLength = 6;
-    Options.Password.RequireLowercase = false;
-    Options.Password.RequireUppercase = false;
-    Options.User.RequireUniqueEmail = true;
-    Options.SignIn.RequireConfirmedAccount = false;
-    Options.SignIn.RequireConfirmedEmail = false;
-    Options.SignIn.RequireConfirmedPhoneNumber = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.User.RequireUniqueEmail = true;
+    options.SignIn.RequireConfirmedAccount = false;
+    options.SignIn.RequireConfirmedEmail = false;
+    options.SignIn.RequireConfirmedPhoneNumber = false;
 })
     .AddEntityFrameworkStores<PTirtaContext>()
     .AddDefaultTokenProviders();
+
+// Cookie configuration for API & SPA
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SameSite = SameSiteMode.Lax;
+    options.Events.OnRedirectToLogin = context =>
+    {
+        if (context.Request.Path.StartsWithSegments("/api"))
+        {
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            return Task.CompletedTask;
+        }
+        context.Response.Redirect(context.RedirectUri);
+        return Task.CompletedTask;
+    };
+});
+
+// CORS for decoupled Vue 3 frontend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("VueClientPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173", "http://127.0.0.1:5173", "https://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
@@ -33,21 +62,25 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Main/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+
 app.UseRouting();
 
+// Enable CORS
+app.UseCors("VueClientPolicy");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapStaticAssets();
+// Map API Controllers and MVC Controllers
+app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Main}/{action=Index}/{id?}")
-    .WithStaticAssets();
-
+    pattern: "{controller=Main}/{action=Index}/{id?}");
 
 app.Run();

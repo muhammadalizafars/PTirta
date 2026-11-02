@@ -1,70 +1,488 @@
-﻿@{
-    ViewData["Title"] = "Portofolio";
+@{
+    ViewData["Title"] = "Portofolio Proyek";
 }
 
 <style>
-    .text-center {
+    :root {
+        --primary-blue: #0284c7;
+        --primary-hover: #0369a1;
+        --secondary-dark: #0f172a;
+        --text-muted-custom: #64748b;
+        --card-bg: #ffffff;
+        --section-light: #f8fafc;
+        --border-color: #e2e8f0;
+    }
+
+    /* Page Header Banner */
+    .page-header-banner {
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(2, 132, 199, 0.88) 100%), 
+                    url('/assets/img/hero-carousel/hero-carousel-2.jpg') center/cover no-repeat;
+        padding: 140px 0 70px 0;
+        color: #ffffff;
         text-align: center;
-        margin-top: 120px;
+        position: relative;
+    }
+
+    .page-header-badge {
+        display: inline-block;
+        padding: 6px 18px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+        margin-bottom: 16px;
+    }
+
+    .page-header-title {
+        font-size: 2.6rem;
+        font-weight: 800;
         margin-bottom: 15px;
+        letter-spacing: -0.5px;
+    }
+
+    .page-header-desc {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 680px;
+        margin: 0 auto 20px auto;
+        line-height: 1.6;
+    }
+
+    .breadcrumb-custom {
+        display: inline-flex;
+        padding: 8px 20px;
+        border-radius: 50px;
+        background: rgba(0, 0, 0, 0.2);
+        list-style: none;
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    .breadcrumb-custom li a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+    }
+
+    .breadcrumb-custom li a:hover {
+        color: #ffffff;
+    }
+
+    .breadcrumb-custom li.active {
+        color: #38bdf8;
+    }
+
+    .breadcrumb-custom li + li::before {
+        content: "/";
+        padding: 0 10px;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Filter Bar */
+    .porto-filter-wrapper {
+        margin-top: -30px;
+        position: relative;
+        z-index: 10;
+        margin-bottom: 45px;
+    }
+
+    .filter-btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        background: #ffffff;
+        padding: 12px;
+        border-radius: 50px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--border-color);
+        max-width: 860px;
+        margin: 0 auto;
+    }
+
+    .filter-btn {
+        border: none;
+        background: transparent;
+        color: var(--text-muted-custom);
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 0.92rem;
+        font-weight: 600;
+        transition: all 0.25s ease;
+        cursor: pointer;
+    }
+
+    .filter-btn:hover {
+        color: var(--primary-blue);
+        background: rgba(2, 132, 199, 0.08);
+    }
+
+    .filter-btn.active {
+        background: var(--primary-blue);
+        color: #ffffff;
+        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+    }
+
+    /* Portfolio Items */
+    .porto-main-section {
+        padding: 30px 0 80px 0;
+        background-color: var(--section-light);
+    }
+
+    .project-card {
+        background: #ffffff;
+        border-radius: 16px;
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+        transition: all 0.35s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .project-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 32px rgba(2, 132, 199, 0.12);
+        border-color: rgba(2, 132, 199, 0.35);
+    }
+
+    .project-img-wrapper {
+        position: relative;
+        height: 230px;
+        overflow: hidden;
+    }
+
+    .project-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .project-card:hover .project-img-wrapper img {
+        transform: scale(1.08);
+    }
+
+    .project-badge-tag {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        background: rgba(2, 132, 199, 0.92);
+        backdrop-filter: blur(4px);
+        color: #ffffff;
+        font-size: 0.78rem;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 50px;
+        letter-spacing: 0.5px;
+    }
+
+    .project-card-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .project-card-title {
+        font-size: 1.22rem;
+        font-weight: 700;
+        color: var(--secondary-dark);
+        margin-bottom: 12px;
+        line-height: 1.4;
+    }
+
+    .project-meta-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 0.84rem;
+        color: var(--text-muted-custom);
+    }
+
+    .project-meta-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .project-meta-item i {
+        color: var(--primary-blue);
+    }
+
+    .project-desc-text {
+        font-size: 0.92rem;
+        color: var(--text-muted-custom);
+        line-height: 1.6;
+        margin-bottom: 0;
+        flex-grow: 1;
+    }
+
+    /* Bottom CTA */
+    .porto-cta-box {
+        background: linear-gradient(135deg, #0f172a 0%, #0369a1 100%);
+        border-radius: 20px;
+        padding: 50px 40px;
+        color: #ffffff;
+        box-shadow: 0 20px 40px rgba(2, 132, 199, 0.18);
+        margin-top: 60px;
+    }
+
+    .porto-cta-box h3 {
+        color: #ffffff;
+        font-size: 1.9rem;
+        font-weight: 800;
+        margin-bottom: 12px;
+    }
+
+    .porto-cta-box p {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 1.05rem;
+        margin-bottom: 0;
+        max-width: 600px;
+    }
+
+    .btn-porto-contact {
+        background: #ffffff;
+        color: var(--primary-blue);
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 1rem;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn-porto-contact:hover {
+        background: #f0fdf4;
+        color: #15803d;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    @@media (max-width: 768px) {
+        .page-header-banner {
+            padding: 120px 0 50px 0;
+        }
+        .page-header-title {
+            font-size: 2rem;
+        }
+        .filter-btn-group {
+            border-radius: 20px;
+        }
+        .porto-cta-box {
+            padding: 30px 20px;
+            text-align: center;
+        }
     }
 </style>
 
-
-<div class="container" data-aos="fade-up">
-    <h2 class="text-center">Portofolio</h2>
-    <div class="row">
-        <div class="col-md-6 d-flex align-items-center">
-            <img src="~/assets/img/hero-carousel/hero-carousel-1.jpg" class="img-fluid rounded" alt="Project Image">
-        </div>
-        <div class="col-md-6">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem quisquam excepturi, fuga facere autem,
-                ex consequuntur accusamus officia aliquid maiores hic nisi soluta asperiores cumque dolores. Accusamus
-                laudantium tempora ipsam?</p>
-        </div>
-    </div>
-
-    <div class="row flex-md-row-reverse">
-        <div class="col-md-6 d-flex align-items-center">
-            <img src="~/assets/img/hero-carousel/hero-carousel-2.jpg" class="img-fluid rounded" alt="Project Image">
-        </div>
-        <div class="col-md-6">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem quisquam excepturi, fuga facere autem,
-                ex consequuntur accusamus officia aliquid maiores hic nisi soluta asperiores cumque dolores. Accusamus
-                laudantium tempora ipsam?</p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6 d-flex align-items-center">
-            <img src="~/assets/img/hero-carousel/hero-carousel-3.jpg" class="img-fluid rounded" alt="Project Image">
-        </div>
-        <div class="col-md-6">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem quisquam excepturi, fuga facere autem,
-                ex consequuntur accusamus officia aliquid maiores hic nisi soluta asperiores cumque dolores. Accusamus
-                laudantium tempora ipsam?</p>
-        </div>
-    </div>
-
-    <div class="row flex-md-row-reverse">
-        <div class="col-md-6 d-flex align-items-center">
-            <img src="~/assets/img/hero-carousel/hero-carousel-3.jpg" class="img-fluid rounded" alt="Project Image">
-        </div>
-        <div class="col-md-6">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem quisquam excepturi, fuga facere autem,
-                ex consequuntur accusamus officia aliquid maiores hic nisi soluta asperiores cumque dolores. Accusamus
-                laudantium tempora ipsam?</p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6 d-flex align-items-center">
-            <img src="https://via.placeholder.com/300x200" class="img-fluid rounded" alt="Project Image">
-        </div>
-        <div class="col-md-6">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem quisquam excepturi, fuga facere autem,
-                ex consequuntur accusamus officia aliquid maiores hic nisi soluta asperiores cumque dolores. Accusamus
-                laudantium tempora ipsam?</p>
-        </div>
+<!-- Page Header Banner -->
+<div class="page-header-banner">
+    <div class="container" data-aos="fade-down">
+        <span class="page-header-badge"><i class="bi bi-collection-fill me-1"></i> Rekam Jejak</span>
+        <h1 class="page-header-title">Portofolio & Pengalaman Pekerjaan</h1>
+        <p class="page-header-desc">
+            Kumpulan proyek perencanaan, kajian hidrologi, dan pengawasan teknik sumber daya air yang telah kami selesaikan dengan mutu prima.
+        </p>
+        <ul class="breadcrumb-custom">
+            <li><a asp-controller="Main" asp-action="Index">Beranda</a></li>
+            <li class="active">Portofolio</li>
+        </ul>
     </div>
 </div>
+
+<!-- Main Portfolio Section -->
+<section class="porto-main-section">
+    <div class="container">
+        <!-- Filter Tabs -->
+        <div class="porto-filter-wrapper" data-aos="fade-up">
+            <div class="filter-btn-group">
+                <button type="button" class="filter-btn active" onclick="filterProjects('all', this)">Semua Pekerjaan</button>
+                <button type="button" class="filter-btn" onclick="filterProjects('banjir', this)">Pengendalian Banjir</button>
+                <button type="button" class="filter-btn" onclick="filterProjects('sda', this)">Perencanaan SDA</button>
+                <button type="button" class="filter-btn" onclick="filterProjects('kajian', this)">Kajian & SIPPA</button>
+                <button type="button" class="filter-btn" onclick="filterProjects('irigasi', this)">Drainase & Irigasi</button>
+            </div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="row g-4" id="portfolioGrid">
+            <!-- Project 1 -->
+            <div class="col-md-6 col-lg-4 project-col" data-category="banjir" data-aos="fade-up" data-aos-delay="100">
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="~/assets/img/hero-carousel/hero-carousel-1.jpg" alt="DED Pengendalian Banjir">
+                        <span class="project-badge-tag">Pengendalian Banjir</span>
+                    </div>
+                    <div class="project-card-body">
+                        <div class="project-meta-list">
+                            <span class="project-meta-item"><i class="bi bi-geo-alt-fill"></i> Jawa Barat</span>
+                            <span class="project-meta-item"><i class="bi bi-calendar3"></i> 2023</span>
+                            <span class="project-meta-item"><i class="bi bi-check-circle-fill"></i> Selesai</span>
+                        </div>
+                        <h3 class="project-card-title">DED Pengendalian Banjir & Normalisasi Sungai</h3>
+                        <p class="project-desc-text">
+                            Perencanaan tanggul pelindung, perkuatan tebing sungai, dan pemodelan hidraulika genangan 2 dimensi untuk mengurangi risiko limpasan di kawasan permukiman.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="col-md-6 col-lg-4 project-col" data-category="sda" data-aos="fade-up" data-aos-delay="150">
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="~/assets/img/hero-carousel/hero-carousel-2.jpg" alt="Perencanaan Embung Konservasi">
+                        <span class="project-badge-tag">Perencanaan SDA</span>
+                    </div>
+                    <div class="project-card-body">
+                        <div class="project-meta-list">
+                            <span class="project-meta-item"><i class="bi bi-geo-alt-fill"></i> Jawa Tengah</span>
+                            <span class="project-meta-item"><i class="bi bi-calendar3"></i> 2023</span>
+                            <span class="project-meta-item"><i class="bi bi-check-circle-fill"></i> Selesai</span>
+                        </div>
+                        <h3 class="project-card-title">Perencanaan Detail Desain (DED) Embung Konservasi</h3>
+                        <p class="project-desc-text">
+                            Kajian geoteknik, hidrologi tampungan, dan desain teknis embung multifungsi guna menampung limpasan air hujan untuk pasokan irigasi dan konservasi air tanah.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="col-md-6 col-lg-4 project-col" data-category="banjir" data-aos="fade-up" data-aos-delay="200">
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="~/assets/img/hero-carousel/hero-carousel-3.jpg" alt="Flood Early Warning System">
+                        <span class="project-badge-tag">Pengendalian Banjir</span>
+                    </div>
+                    <div class="project-card-body">
+                        <div class="project-meta-list">
+                            <span class="project-meta-item"><i class="bi bi-geo-alt-fill"></i> Banten</span>
+                            <span class="project-meta-item"><i class="bi bi-calendar3"></i> 2024</span>
+                            <span class="project-meta-item"><i class="bi bi-check-circle-fill"></i> Selesai</span>
+                        </div>
+                        <h3 class="project-card-title">Perencanaan Flood Early Warning System (FEWS)</h3>
+                        <p class="project-desc-text">
+                            Implementasi sensor level air dan curah hujan berbasis telemetri GSM/IoT, dilengkapi algoritma peringatan dini banjir bagi masyarakat hilir sungai.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="col-md-6 col-lg-4 project-col" data-category="kajian" data-aos="fade-up" data-aos-delay="100">
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="~/assets/img/constructions-1.jpg" alt="Kajian SIPPA Rekomtek">
+                        <span class="project-badge-tag">Kajian & Perizinan</span>
+                    </div>
+                    <div class="project-card-body">
+                        <div class="project-meta-list">
+                            <span class="project-meta-item"><i class="bi bi-geo-alt-fill"></i> Karawang</span>
+                            <span class="project-meta-item"><i class="bi bi-calendar3"></i> 2024</span>
+                            <span class="project-meta-item"><i class="bi bi-check-circle-fill"></i> Selesai</span>
+                        </div>
+                        <h3 class="project-card-title">Kajian Neraca Air & Dokumen Rekomtek SIPPA</h3>
+                        <p class="project-desc-text">
+                            Analisis ketersediaan air andalan permukaan tanah, debit pemanfaatan pabrik, serta penyusunan kelengkapan teknis izin pemanfaatan sumber daya air resmi.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="col-md-6 col-lg-4 project-col" data-category="irigasi" data-aos="fade-up" data-aos-delay="150">
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="~/assets/img/constructions-2.jpg" alt="Master Plan Drainase Perkotaan">
+                        <span class="project-badge-tag">Drainase & Irigasi</span>
+                    </div>
+                    <div class="project-card-body">
+                        <div class="project-meta-list">
+                            <span class="project-meta-item"><i class="bi bi-geo-alt-fill"></i> Kota Bandung</span>
+                            <span class="project-meta-item"><i class="bi bi-calendar3"></i> 2022</span>
+                            <span class="project-meta-item"><i class="bi bi-check-circle-fill"></i> Selesai</span>
+                        </div>
+                        <h3 class="project-card-title">Master Plan Drainase & Kolam Retensi Perkotaan</h3>
+                        <p class="project-desc-text">
+                            Kajian komprehensif alur drainase primer dan sekunder perkotaan, didukung integrasi kolam retensi serta sumur resapan guna memitigasi genangan jalan.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 6 -->
+            <div class="col-md-6 col-lg-4 project-col" data-category="irigasi" data-aos="fade-up" data-aos-delay="200">
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="~/assets/img/features-2.jpg" alt="Penyusunan AKNOP Irigasi">
+                        <span class="project-badge-tag">Drainase & Irigasi</span>
+                    </div>
+                    <div class="project-card-body">
+                        <div class="project-meta-list">
+                            <span class="project-meta-item"><i class="bi bi-geo-alt-fill"></i> Jawa Barat</span>
+                            <span class="project-meta-item"><i class="bi bi-calendar3"></i> 2023</span>
+                            <span class="project-meta-item"><i class="bi bi-check-circle-fill"></i> Selesai</span>
+                        </div>
+                        <h3 class="project-card-title">Penyusunan AKNOP & Manual OP Daerah Irigasi</h3>
+                        <p class="project-desc-text">
+                            Inventarisasi kondisi fisik saluran irigasi, estimasi biaya kebutuhan nyata operasi & pemeliharaan (AKNOP), serta penyusunan pedoman manual OP bagi juru pengairan.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Box -->
+        <div class="porto-cta-box" data-aos="fade-up">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8">
+                    <h3>Ingin Bermitra untuk Proyek Anda?</h3>
+                    <p>
+                        Diskusikan kebutuhan perencanaan atau pengawasan sumber daya air bersama tim konsultan kami untuk hasil yang terukur dan berkualitas.
+                    </p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="mailto:tirtarekayasakonsultanbdg@gmail.com" class="btn-porto-contact">
+                        <i class="bi bi-chat-dots-fill"></i> Mulai Diskusi
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        function filterProjects(category, btn) {
+            // Update active button
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Filter cards
+            const items = document.querySelectorAll('.project-col');
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+}

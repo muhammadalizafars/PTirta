@@ -1,0 +1,201 @@
+/*--------------------------------------------------------------
+# Auth Styles - PT. Tirta Rekayasa Konsultan
+--------------------------------------------------------------*/
+:root {
+  --primary-blue: #0284c7;
+  --primary-hover: #0369a1;
+  --secondary-dark: #0f172a;
+  --text-muted-custom: #64748b;
+  --border-color: #e2e8f0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--secondary-dark);
+  margin: 0;
+  padding: 0;
+  background-color: #f8fafc;
+}
+
+.account-container {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(2, 132, 199, 0.8) 100%),
+              url('/assets/img/hero-carousel/hero-carousel-1.jpg') center/cover no-repeat fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.account-box {
+  background-color: #ffffff;
+  padding: 40px 36px;
+  border-radius: 20px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  max-width: 460px;
+  width: 100%;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.auth-logo {
+  max-height: 52px;
+  margin-bottom: 16px;
+  object-fit: contain;
+}
+
+.auth-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--secondary-dark);
+  margin-bottom: 6px;
+  letter-spacing: -0.3px;
+}
+
+.auth-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-muted-custom);
+  margin-bottom: 0;
+}
+
+.form-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.input-group-custom {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.input-icon-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 1.1rem;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.form-control-custom {
+  width: 100%;
+  padding: 11px 16px 11px 42px;
+  font-size: 0.92rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--border-color);
+  background-color: #f8fafc;
+  color: var(--secondary-dark);
+  transition: all 0.25s ease;
+}
+
+.form-control-custom:focus {
+  background-color: #ffffff;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
+  outline: none;
+}
+
+.form-check-label {
+  font-size: 0.86rem;
+  color: #475569;
+}
+
+.form-check-input:checked {
+  background-color: var(--primary-blue);
+  border-color: var(--primary-blue);
+}
+
+.auth-link {
+  color: var(--primary-blue);
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.auth-link:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+.btn-auth-primary {
+  background: var(--primary-blue);
+  color: #ffffff;
+  font-size: 0.98rem;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
+}
+
+.btn-auth-primary:hover {
+  background: var(--primary-hover);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.4);
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 22px 0;
+  color: #94a3b8;
+  font-size: 0.82rem;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.auth-divider span {
+  padding: 0 12px;
+}
+
+.auth-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted-custom);
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.auth-back-link:hover {
+  color: var(--primary-blue);
+}
+
+.text-danger {
+  font-size: 0.8rem;
+  margin-top: 4px;
+  display: block;
+}
+
+@@media (max-width: 576px) {
+  .account-box {
+    padding: 30px 22px;
+  }
+}

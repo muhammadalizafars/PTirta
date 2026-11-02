@@ -1,140 +1,548 @@
 @{
-    ViewData["Title"] = "Layanan";
+    ViewData["Title"] = "Layanan Konsultansi";
 }
 
 <style>
-    .banner {}
-
-    /* Layanan Section */
-    .services {
-        text-align: center;
-        padding: 40px 0;
+    :root {
+        --primary-blue: #0284c7;
+        --primary-hover: #0369a1;
+        --secondary-dark: #0f172a;
+        --text-muted-custom: #64748b;
+        --card-bg: #ffffff;
+        --section-light: #f8fafc;
+        --border-color: #e2e8f0;
     }
 
-    .service-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
+    /* Page Header Banner */
+    .page-header-banner {
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(2, 132, 199, 0.88) 100%), 
+                    url('/assets/img/hero-carousel/hero-carousel-1.jpg') center/cover no-repeat;
+        padding: 140px 0 70px 0;
+        color: #ffffff;
+        text-align: center;
+        position: relative;
+    }
+
+    .page-header-badge {
+        display: inline-block;
+        padding: 6px 18px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+        margin-bottom: 16px;
+    }
+
+    .page-header-title {
+        font-size: 2.6rem;
+        font-weight: 800;
+        margin-bottom: 15px;
+        letter-spacing: -0.5px;
+    }
+
+    .page-header-desc {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 680px;
+        margin: 0 auto 20px auto;
+        line-height: 1.6;
+    }
+
+    .breadcrumb-custom {
+        display: inline-flex;
+        padding: 8px 20px;
+        border-radius: 50px;
+        background: rgba(0, 0, 0, 0.2);
+        list-style: none;
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    .breadcrumb-custom li a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+    }
+
+    .breadcrumb-custom li a:hover {
+        color: #ffffff;
+    }
+
+    .breadcrumb-custom li.active {
+        color: #38bdf8;
+    }
+
+    .breadcrumb-custom li + li::before {
+        content: "/";
+        padding: 0 10px;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Filter Bar */
+    .service-filter-wrapper {
+        margin-top: -30px;
+        position: relative;
+        z-index: 10;
+        margin-bottom: 50px;
+    }
+
+    .filter-btn-group {
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
-        padding: 0 5%;
+        gap: 10px;
+        background: #ffffff;
+        padding: 12px;
+        border-radius: 50px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--border-color);
+        max-width: 820px;
+        margin: 0 auto;
     }
 
-    .service-item {
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 15px;
-        text-align: center;
+    .filter-btn {
+        border: none;
+        background: transparent;
+        color: var(--text-muted-custom);
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 0.92rem;
+        font-weight: 600;
+        transition: all 0.25s ease;
+        cursor: pointer;
     }
 
-    .service-item img {
+    .filter-btn:hover {
+        color: var(--primary-blue);
+        background: rgba(2, 132, 199, 0.08);
+    }
+
+    .filter-btn.active {
+        background: var(--primary-blue);
+        color: #ffffff;
+        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+    }
+
+    /* Service Cards */
+    .services-main-section {
+        padding: 30px 0 80px 0;
+        background-color: var(--section-light);
+    }
+
+    .service-card-item {
+        background: #ffffff;
+        border-radius: 16px;
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+        transition: all 0.35s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .service-card-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 32px rgba(2, 132, 199, 0.12);
+        border-color: rgba(2, 132, 199, 0.35);
+    }
+
+    .service-item-img {
+        position: relative;
+        height: 190px;
+        overflow: hidden;
+    }
+
+    .service-item-img img {
         width: 100%;
-        height: 180px;
+        height: 100%;
         object-fit: cover;
-        border-radius: 10px;
+        transition: transform 0.5s ease;
     }
 
-    .services h2 {
-        font-size: 32px;
-        margin-bottom: 20px;
+    .service-card-item:hover .service-item-img img {
+        transform: scale(1.08);
     }
 
-    .service-item h3 {
-        font-size: 18px;
-        margin: 10px 0;
-        padding: 10px;
+    .service-cat-pill {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        background: rgba(15, 23, 42, 0.78);
+        backdrop-filter: blur(4px);
+        color: #ffffff;
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 50px;
+        letter-spacing: 0.5px;
     }
 
-
-
-    .services h2 {
-        font-size: 32px;
-        margin-top: 100px;
+    .service-item-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
     }
 
-    .service-item p {
-        font-size: 14px;
-        color: #666;
+    .service-icon-box {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        border-radius: 12px;
+        background: rgba(2, 132, 199, 0.1);
+        color: var(--primary-blue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.35rem;
+        margin-bottom: 16px;
+        transition: all 0.3s ease;
     }
 
-    .nav-img {
-        max-width: 100%;
+    .service-card-item:hover .service-icon-box {
+        background: var(--primary-blue);
+        color: #ffffff;
+        transform: rotate(5deg);
+    }
+
+    .service-title-text {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--secondary-dark);
+        margin-bottom: 10px;
+        line-height: 1.4;
+    }
+
+    .service-desc-text {
+        font-size: 0.92rem;
+        color: var(--text-muted-custom);
+        line-height: 1.6;
+        margin-bottom: 0;
+        flex-grow: 1;
+    }
+
+    /* Consultation Banner / CTA */
+    .cta-consult-box {
+        background: linear-gradient(135deg, #0f172a 0%, #0369a1 100%);
+        border-radius: 20px;
+        padding: 50px 40px;
+        color: #ffffff;
+        box-shadow: 0 20px 40px rgba(2, 132, 199, 0.18);
+        margin-top: 60px;
+    }
+
+    .cta-consult-box h3 {
+        color: #ffffff;
+        font-size: 1.9rem;
+        font-weight: 800;
+        margin-bottom: 12px;
+    }
+
+    .cta-consult-box p {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 1.05rem;
+        margin-bottom: 0;
+        max-width: 600px;
+    }
+
+    .btn-cta-contact {
+        background: #ffffff;
+        color: var(--primary-blue);
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 1rem;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn-cta-contact:hover {
+        background: #f0fdf4;
+        color: #15803d;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    @@media (max-width: 768px) {
+        .page-header-banner {
+            padding: 120px 0 50px 0;
+        }
+        .page-header-title {
+            font-size: 2rem;
+        }
+        .cta-consult-box {
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .filter-btn-group {
+            border-radius: 20px;
+        }
     }
 </style>
 
+<!-- Page Header Banner -->
+<div class="page-header-banner">
+    <div class="container" data-aos="fade-down">
+        <span class="page-header-badge"><i class="bi bi-briefcase-fill me-1"></i> Layanan Kami</span>
+        <h1 class="page-header-title">Solusi Rekayasa Sumber Daya Air Terpadu</h1>
+        <p class="page-header-desc">
+            Memberikan jasa konsultansi profesional dengan standar mutu terbaik, didukung tim konsultan ahli berpengalaman dan berdedikasi tinggi.
+        </p>
+        <ul class="breadcrumb-custom">
+            <li><a asp-controller="Main" asp-action="Index">Beranda</a></li>
+            <li class="active">Layanan</li>
+        </ul>
+    </div>
+</div>
 
+<!-- Main Services Section -->
+<section class="services-main-section">
+    <div class="container">
+        <!-- Filter Tabs -->
+        <div class="service-filter-wrapper" data-aos="fade-up">
+            <div class="filter-btn-group">
+                <button type="button" class="filter-btn active" onclick="filterServices('all', this)">Semua Layanan</button>
+                <button type="button" class="filter-btn" onclick="filterServices('perencanaan', this)">Perencanaan & Desain</button>
+                <button type="button" class="filter-btn" onclick="filterServices('kajian', this)">Kajian & Dokumen</button>
+                <button type="button" class="filter-btn" onclick="filterServices('op', this)">Operasi & Pemeliharaan</button>
+            </div>
+        </div>
 
-<section class="section">
-    <div class=" container" data-aos="fade-up">
-        <div class="services">
-            <h2>Layanan</h2>
-            <div class="service-grid">
-                <div class="service-item">
-                    <img src="~/assets/img/alt-services.jpg" alt="Service 1">
-                    <h3>Analisa Hidrologi dan Hidroklimatologi</h3>
-                    <p>Studi terkait curah hujan, debit air, dan siklus hidrologi.</p>
+        <!-- Services Grid -->
+        <div class="row g-4" id="servicesGrid">
+            <!-- 1. Hidrologi -->
+            <div class="col-md-6 col-lg-4 service-col" data-category="perencanaan" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-card-item">
+                    <div class="service-item-img">
+                        <img src="~/assets/img/alt-services.jpg" alt="Analisa Hidrologi">
+                        <span class="service-cat-pill">Perencanaan Teknis</span>
+                    </div>
+                    <div class="service-item-body">
+                        <div class="service-icon-box"><i class="bi bi-cloud-rain-heavy"></i></div>
+                        <h3 class="service-title-text">Analisa Hidrologi dan Hidroklimatologi</h3>
+                        <p class="service-desc-text">
+                            Studi komprehensif terkait fluktuasi curah hujan harian, intensitas hujan jam-jaman, debit andalan sungai, dan neraca air wilayah DAS.
+                        </p>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <img src="~/assets/img/alt-services.jpg" alt="Service 2">
-                    <h3>Analisa Banjir</h3>
-                    <p>Pemetaan dan mitigasi daerah rawan banjir.</p>
+            </div>
+
+            <!-- 2. Analisa Banjir -->
+            <div class="col-md-6 col-lg-4 service-col" data-category="perencanaan" data-aos="fade-up" data-aos-delay="150">
+                <div class="service-card-item">
+                    <div class="service-item-img">
+                        <img src="~/assets/img/features-2.jpg" alt="Analisa Banjir">
+                        <span class="service-cat-pill">Perencanaan Teknis</span>
+                    </div>
+                    <div class="service-item-body">
+                        <div class="service-icon-box"><i class="bi bi-water"></i></div>
+                        <h3 class="service-title-text">Analisa & Pengendalian Banjir</h3>
+                        <p class="service-desc-text">
+                            Pemodelan hidraulika genangan banjir, pemetaan risiko daerah rawan, serta perumusan struktur pengendali banjir terpadu.
+                        </p>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <img src="~/assets/img/alt-services.jpg" alt="Service 3">
-                    <h3>Perencanaan Flood Early Warning System</h3>
-                    <p>Penyusunan sistem peringatan dini terhadap banjir.</p>
+            </div>
+
+            <!-- 3. FEWS -->
+            <div class="col-md-6 col-lg-4 service-col" data-category="perencanaan" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-card-item">
+                    <div class="service-item-img">
+                        <img src="~/assets/img/features-3.jpg" alt="FEWS">
+                        <span class="service-cat-pill">Perencanaan Teknis</span>
+                    </div>
+                    <div class="service-item-body">
+                        <div class="service-icon-box"><i class="bi bi-broadcast"></i></div>
+                        <h3 class="service-title-text">Perencanaan Flood Early Warning System</h3>
+                        <p class="service-desc-text">
+                            Desain dan arsitektur sistem peringatan dini banjir otomatis berbasis telemetri real-time untuk mitigasi bencana kawasan hilir.
+                        </p>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <img src="~/assets/img/alt-services.jpg" alt="Service 4">
-                    <h3>Perencanaan Bangunan Air (Bendung, Embung, Bendungan, Irigasi)</h3>
-                    <p>Desain dan perencanaan infrastruktur sumber daya air.</p>
+            </div>
+
+            <!-- 4. Bangunan Air -->
+            <div class="col-md-6 col-lg-4 service-col" data-category="perencanaan" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-card-item">
+                    <div class="service-item-img">
+                        <img src="~/assets/img/constructions-1.jpg" alt="Perencanaan Bangunan Air">
+                        <span class="service-cat-pill">Perencanaan Teknis</span>
+                    </div>
+                    <div class="service-item-body">
+                        <div class="service-icon-box"><i class="bi bi-building"></i></div>
+                        <h3 class="service-title-text">Perencanaan Bangunan Air & Irigasi</h3>
+                        <p class="service-desc-text">
+                            Desain teknis (DED) bendung, embung penampung, tanggul penahan banjir, saluran pelimpah, serta jaringan irigasi primer hingga tersier.
+                        </p>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <img src="~/assets/img/alt-services.jpg" alt="Service 5">
-                    <h3>Perencanaan Dokumen Kelengkapan SIPPA/Rekomtek</h3>
-                    <p>Penyusunan dokumen teknis untuk perizinan sumber daya air.</p>
+            </div>
+
+            <!-- 5. SIPPA / Rekomtek -->
+            <div class="col-md-6 col-lg-4 service-col" data-category="kajian" data-aos="fade-up" data-aos-delay="150">
+                <div class="service-card-item">
+                    <div class="service-item-img">
+                        <img src="~/assets/img/features-1.jpg" alt="SIPPA Rekomtek">
+                        <span class="service-cat-pill">Kajian & Perizinan</span>
+                    </div>
+                    <div class="service-item-body">
+                        <div class="service-icon-box"><i class="bi bi-file-earmark-check"></i></div>
+                        <h3 class="service-title-text">Penyusunan Kelengkapan SIPPA / Rekomtek</h3>
+                        <p class="service-desc-text">
+                            Penyusunan berkas teknis permohonan Rekomendasi Teknis (Rekomtek) dan Surat Izin Pengambilan dan Pemanfaatan Air (SIPPA).
+                        </p>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <img src="~/assets/img/alt-services.jpg" alt="Service 6">
-                    <h3>Penyusunan Manual OP</h3>
-                    <p>Panduan operasional dan pemeliharaan infrastruktur.</p>
+            </div>
+
+            <!-- 6. Manual OP -->
+            <div class="col-md-6 col-lg-4 service-col" data-category="op" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-card-item">
+                    <div class="service-item-img">
+                        <img src="~/assets/img/kerja4.jpg" alt="Manual OP">
+                        <span class="service-cat-pill">Operasi & Pemeliharaan</span>
+                    </div>
+                    <div class="service-item-body">
+                        <div class="service-icon-box"><i class="bi bi-journal-bookmark"></i></div>
+                        <h3 class="service-title-text">Penyusunan Manual Operasi & Pemeliharaan</h3>
+                        <p class="service-desc-text">
+                            Penyusunan pedoman baku operasional pintu air, embung, waduk, pompa banjir, dan pemeliharaan berkala infrastruktur SDA.
+                        </p>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <img src="~/assets/img/alt-services.jpg" alt="Service 7">
-                    <h3>Penyusunan Dokumen AKNOP</h3>
-                    <p>Dokumen analisis kebutuhan operasi dan pemeliharaan.</p>
+            </div>
+
+            <!-- 7. AKNOP -->
+            <div class="col-md-6 col-lg-4 service-col" data-category="op" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-card-item">
+                    <div class="service-item-img">
+                        <img src="~/assets/img/constructions-3.jpg" alt="Dokumen AKNOP">
+                        <span class="service-cat-pill">Operasi & Pemeliharaan</span>
+                    </div>
+                    <div class="service-item-body">
+                        <div class="service-icon-box"><i class="bi bi-calculator"></i></div>
+                        <h3 class="service-title-text">Penyusunan Dokumen AKNOP</h3>
+                        <p class="service-desc-text">
+                            Perhitungan Analisis Kebutuhan Nyata Operasi dan Pemeliharaan (AKNOP) untuk estimasi anggaran berkelanjutan sarana dan prasarana.
+                        </p>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <img src="~/assets/img/alt-services.jpg" alt="Service 8">
-                    <h3>Penyusunan Kajian Biaya Jasa Pengelolaan Sumber Daya Air</h3>
-                    <p>Analisis biaya dalam pengelolaan sumber daya air.</p>
+            </div>
+
+            <!-- 8. BJPSDA -->
+            <div class="col-md-6 col-lg-4 service-col" data-category="kajian" data-aos="fade-up" data-aos-delay="150">
+                <div class="service-card-item">
+                    <div class="service-item-img">
+                        <img src="~/assets/img/services.jpg" alt="Kajian BJPSDA">
+                        <span class="service-cat-pill">Kajian & Perizinan</span>
+                    </div>
+                    <div class="service-item-body">
+                        <div class="service-icon-box"><i class="bi bi-cash-coin"></i></div>
+                        <h3 class="service-title-text">Kajian Biaya Jasa Pengelolaan SDA (BJPSDA)</h3>
+                        <p class="service-desc-text">
+                            Kajian tarif dan analisis pembiayaan rasional dalam pemanfaatan serta konservasi sumber daya air antar pemangku kepentingan.
+                        </p>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <img src="~/assets/img/alt-services.jpg" alt="Service 9">
-                    <h3>Penyusunan Dokumen Lingkungan</h3>
-                    <p>Dokumen kajian lingkungan untuk proyek infrastruktur.</p>
+            </div>
+
+            <!-- 9. Dokumen Lingkungan -->
+            <div class="col-md-6 col-lg-4 service-col" data-category="kajian" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-card-item">
+                    <div class="service-item-img">
+                        <img src="~/assets/img/about.jpg" alt="Dokumen Lingkungan">
+                        <span class="service-cat-pill">Kajian & Perizinan</span>
+                    </div>
+                    <div class="service-item-body">
+                        <div class="service-icon-box"><i class="bi bi-tree"></i></div>
+                        <h3 class="service-title-text">Penyusunan Dokumen Lingkungan (AMDAL / UKL-UPL)</h3>
+                        <p class="service-desc-text">
+                            Studi dampak lingkungan dan dokumen pengelolaan serta pemantauan lingkungan hidup untuk proyek-proyek infrastruktur sipil keairan.
+                        </p>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <img src="~/assets/img/alt-services.jpg" alt="Service 10">
-                    <h3>Penyusunan LARAP</h3>
-                    <p>Dokumen rencana aksi pemukiman kembali.</p>
+            </div>
+
+            <!-- 10. LARAP -->
+            <div class="col-md-6 col-lg-4 service-col" data-category="kajian" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-card-item">
+                    <div class="service-item-img">
+                        <img src="~/assets/img/constructions-2.jpg" alt="Penyusunan LARAP">
+                        <span class="service-cat-pill">Kajian & Perizinan</span>
+                    </div>
+                    <div class="service-item-body">
+                        <div class="service-icon-box"><i class="bi bi-geo-alt"></i></div>
+                        <h3 class="service-title-text">Penyusunan LARAP (Pengadaan Tanah & Pemukiman)</h3>
+                        <p class="service-desc-text">
+                            Dokumen Land Acquisition and Resettlement Action Plan untuk mitigasi sosial dan kepastian hukum pelepasan lahan pembangunan.
+                        </p>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <img src="~/assets/img/alt-services.jpg" alt="Service 11">
-                    <h3>Penyusunan Manual OP</h3>
-                    <p>Panduan operasional dan pemeliharaan infrastruktur.</p>
+            </div>
+
+            <!-- 11. Training & Capacity Building -->
+            <div class="col-md-6 col-lg-4 service-col" data-category="op" data-aos="fade-up" data-aos-delay="150">
+                <div class="service-card-item">
+                    <div class="service-item-img">
+                        <img src="~/assets/img/features-4.jpg" alt="Training Development">
+                        <span class="service-cat-pill">Pelatihan & SDM</span>
+                    </div>
+                    <div class="service-item-body">
+                        <div class="service-icon-box"><i class="bi bi-mortarboard"></i></div>
+                        <h3 class="service-title-text">Pelatihan & Capacity Development</h3>
+                        <p class="service-desc-text">
+                            Peningkatan kompetensi staf teknis pemerintah dan swasta dalam pemodelan hidrologi, GIS keairan, serta operasi sarana SDA.
+                        </p>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <img src="~/assets/img/alt-services.jpg" alt="Service 12">
-                    <h3>Penyusunan Dokumen AKNOP</h3>
-                    <p>Dokumen analisis kebutuhan operasi dan pemeliharaan.</p>
+            </div>
+        </div>
+
+        <!-- Consultation Banner -->
+        <div class="cta-consult-box" data-aos="fade-up">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8">
+                    <h3>Butuh Konsultasi untuk Proyek Anda?</h3>
+                    <p>
+                        Tim ahli PT. Tirta Rekayasa Konsultan siap berdiskusi dan memberikan solusi teknis terbaik yang akurat, efektif, serta efisien.
+                    </p>
                 </div>
-                <div class="service-item">
-                    <img src="~/assets/img/alt-services.jpg" alt="Service 13">
-                    <h3>Training Development</h3>
-                    <p>Pelatihan dan pengembangan keterampilan teknis.</p>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="mailto:tirtarekayasakonsultanbdg@gmail.com" class="btn-cta-contact">
+                        <i class="bi bi-envelope-fill"></i> Hubungi Konsultan
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+@section Scripts {
+    <script>
+        function filterServices(category, btn) {
+            // Update active button
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Filter cards
+            const items = document.querySelectorAll('.service-col');
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+}

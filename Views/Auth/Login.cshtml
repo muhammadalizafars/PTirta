@@ -1,44 +1,71 @@
-﻿@using PTirta.ViewModels;
+@using PTirta.ViewModels;
 @model LoginVM;
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Masuk";
     Layout = "~/Views/Shared/_AuthLayout.cshtml";
 }
 
 <div class="account-container">
     <div class="account-box">
-        <h2 class="text-center mb-4">Login</h2>
+        <div class="auth-header">
+            <a asp-controller="Main" asp-action="Index">
+                <img src="~/assets/img/Logo/Logo.png" alt="Logo PT Tirta" class="auth-logo" />
+            </a>
+            <h2 class="auth-title">Selamat Datang</h2>
+            <p class="auth-subtitle">Masuk ke portal PT. Tirta Rekayasa Konsultan</p>
+        </div>
+
         <form asp-action="Login" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
             <div class="mb-3">
-                <label asp-for="Email" class="form-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <label asp-for="Email" class="form-label">Email</label>
+                <div class="input-group-custom">
+                    <span class="input-icon-wrapper"><i class="bi bi-envelope"></i></span>
+                    <input asp-for="Email" class="form-control-custom" placeholder="nama@email.com" />
+                </div>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
-                <label asp-for="Password" class="form-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <label asp-for="Password" class="form-label mb-0">Kata Sandi</label>
+                    <a asp-controller="Auth" asp-action="VerifyEmail" class="auth-link">
+                        Lupa sandi?
+                    </a>
+                </div>
+                <div class="input-group-custom">
+                    <span class="input-icon-wrapper"><i class="bi bi-lock"></i></span>
+                    <input asp-for="Password" class="form-control-custom" placeholder="••••••••" type="password" />
+                </div>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="float-end">
-                <a asp-controller="Auth" asp-action="VerifyEmail" class="text-decoration-none">
-                    Forgot password?
-                </a>
-            </div>
-            <div class="form-check mb-3">
-                <label class="form-check-label">
-                    <input asp-for="RememberMe" class="form-check-input" />
-                    @Html.DisplayNameFor(a=> a.RememberMe)
+
+            <div class="form-check mb-4">
+                <input asp-for="RememberMe" class="form-check-input" id="rememberMeCheck" />
+                <label class="form-check-label" for="rememberMeCheck">
+                    Ingat saya di perangkat ini
                 </label>
             </div>
-            <input type="submit" value="Login" class="btn btn-success w-100 p-2" />
-            <p class="text-center mt-2">
-                Don't have an account? <a asp-controller="Auth" asp-action="Register"
-                    class="text-decoration-none">Register</a>
+
+            <button type="submit" class="btn-auth-primary">
+                <i class="bi bi-box-arrow-in-right"></i> Masuk
+            </button>
+
+            <div class="auth-divider">
+                <span>atau</span>
+            </div>
+
+            <p class="text-center mb-3" style="font-size: 0.9rem; color: #64748b;">
+                Belum memiliki akun? 
+                <a asp-controller="Auth" asp-action="Register" class="auth-link">Daftar sekarang</a>
             </p>
+
             <div class="text-center">
-                <a asp-controller="Main" asp-action="Index" class="text-decoration-none mt-3">Back</a>
+                <a asp-controller="Main" asp-action="Index" class="auth-back-link">
+                    <i class="bi bi-arrow-left"></i> Kembali ke Beranda
+                </a>
             </div>
         </form>
     </div>
