@@ -400,5 +400,182 @@ import MainLayout from '@/layouts/MainLayout.vue'
   gap: 8px;
   text-decoration: none;
 }
+
+/* Tablet */
+@media (max-width: 991.98px) {
+  #heroCarousel {
+    height: 70vh;
+    min-height: 520px;
+    max-height: 640px;
+  }
+
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .section-title {
+    font-size: 1.9rem;
+  }
+
+  .landing-section {
+    padding: 60px 0;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767.98px) {
+  #heroCarousel {
+    height: 85vh;
+    min-height: 560px;
+  }
+
+  .hero-content {
+    padding: 0 16px;
+    margin-top: 20px;
+  }
+
+  .hero-content .hero-badge {
+    font-size: 0.7rem;
+    padding: 4px 12px;
+    margin-bottom: 12px;
+  }
+
+  .hero-content h1 {
+    font-size: 1.4rem;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  .hero-content p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .hero-btn-primary,
+  .hero-btn-outline {
+    padding: 8px 16px;
+    font-size: 0.82rem;
+    width: 100%;
+    justify-content: center;
+    white-space: normal;
+  }
+
+  .hero-content .d-flex {
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100%;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 30px;
+    opacity: 0.5;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .carousel-indicators {
+    bottom: 12px;
+    margin-bottom: 0;
+  }
+
+  .carousel-indicators button {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .stats-card-container {
+    margin-top: -30px;
+  }
+
+  .stats-card {
+    padding: 20px 12px;
+  }
+
+  .stat-item {
+    padding: 8px 10px;
+  }
+
+  .stat-info h4 {
+    font-size: 1.15rem;
+  }
+
+  .about-img-box img {
+    min-height: 260px;
+  }
+
+  .about-floating-badge {
+    bottom: 10px;
+    left: 10px;
+    padding: 10px 14px;
+  }
+
+  .about-floating-badge h5 {
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+  }
+
+  .about-floating-badge span {
+    font-size: 0.74rem;
+  }
+
+  .feature-check-list li {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+
+  .feature-check-list li i {
+    font-size: 1.1rem;
+    margin-top: 3px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 575.98px) {
+  #heroCarousel {
+    height: 100vh;
+    min-height: 560px;
+  }
+
+  .hero-content h1 {
+    font-size: 1.3rem;
+  }
+
+  .section-title {
+    font-size: 1.55rem;
+  }
+
+  .landing-section {
+    padding: 45px 0;
+  }
+
+  .stats-card-container {
+    margin-top: -35px;
+  }
+
+  .stat-item {
+    flex-direction: column;
+    text-align: center;
+    padding: 12px 8px;
+  }
+
+  .stat-icon {
+    margin-bottom: 8px;
+  }
+
+  .stat-info h4 {
+    font-size: 1rem;
+  }
+
+  .stat-info p {
+    font-size: 0.8rem;
+  }
+}
 </style>
 

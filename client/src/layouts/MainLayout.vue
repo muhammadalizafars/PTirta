@@ -55,7 +55,7 @@ onMounted(() => {
             </li>
           </ul>
           <i
-            class="mobile-nav-toggle d-xl-none bi"
+            class="mobile-nav-toggle d-lg-none bi"
             :class="isMobileNavActive ? 'bi-x' : 'bi-list'"
             @click="toggleMobileNav"
           ></i>
@@ -203,6 +203,14 @@ onMounted(() => {
   border-color: #ef4444;
 }
 
+.mobile-nav-toggle {
+  cursor: pointer;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: #0f172a;
+  padding: 4px;
+}
+
 /* Footer */
 .footer {
   background: #0f172a;
@@ -227,6 +235,17 @@ onMounted(() => {
 .copyright {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 25px;
+}
+
+@media (max-width: 575.98px) {
+  .footer .col-lg-5,
+  .footer .col-lg-3,
+  .footer .col-lg-4,
+  .footer .col-md-6,
+  .footer .col-md-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 991.98px) {

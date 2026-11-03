@@ -20,5 +20,47 @@ body {
   padding: 0;
   background-color: #ffffff;
 }
+
+/* Mobile-first touch optimization */
+button, a, input[type="button"], input[type="submit"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Tablet optimization */
+@media (max-width: 991.98px) {
+  body {
+    font-size: 15px;
+  }
+}
+
+/* Mobile optimization */
+@media (max-width: 767.98px) {
+  body {
+    font-size: 14px;
+  }
+
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 8px 12px;
+  }
+
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 575.98px) {
+  body {
+    font-size: 13px;
+  }
+}
 </style>
 

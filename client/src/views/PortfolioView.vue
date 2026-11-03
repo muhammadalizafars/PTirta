@@ -323,5 +323,159 @@ onMounted(() => {
   margin-bottom: 0;
   flex-grow: 1;
 }
+
+/* Tablet */
+@media (max-width: 991.98px) {
+  .page-header-title {
+    font-size: 2.1rem;
+  }
+
+  .page-header-desc {
+    font-size: 1rem;
+  }
+
+  .page-header-banner {
+    padding: 110px 0 60px 0;
+  }
+
+  .porto-filter-wrapper {
+    margin-bottom: 40px;
+  }
+
+  .filter-btn-group {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .filter-btn {
+    padding: 7px 16px;
+    font-size: 0.88rem;
+  }
+
+  .porto-main-section {
+    padding: 20px 0 60px 0;
+  }
+
+  .project-img-wrapper {
+    height: 200px;
+  }
+
+  .project-card-body {
+    padding: 18px;
+  }
+
+  .project-card-title {
+    font-size: 1.1rem;
+  }
+
+  .project-meta-list {
+    font-size: 0.78rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767.98px) {
+  .page-header-banner {
+    padding: 90px 0 50px 0;
+  }
+
+  .page-header-badge {
+    font-size: 0.78rem;
+    padding: 5px 14px;
+  }
+
+  .page-header-title {
+    font-size: 1.7rem;
+  }
+
+  .page-header-desc {
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+  }
+
+  .breadcrumb-custom {
+    font-size: 0.85rem;
+    padding: 6px 14px;
+  }
+
+  .porto-filter-wrapper {
+    margin-top: -15px;
+    margin-bottom: 30px;
+  }
+
+  .filter-btn-group {
+    max-width: 100%;
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 6px 14px;
+    font-size: 0.82rem;
+  }
+
+  .porto-main-section {
+    padding: 15px 0 50px 0;
+  }
+
+  .row.g-4 {
+    --bs-gutter-x: 1rem;
+    --bs-gutter-y: 1rem;
+  }
+
+  .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .project-img-wrapper {
+    height: 220px;
+  }
+
+  .project-card-body {
+    padding: 16px;
+  }
+
+  .project-card-title {
+    font-size: 1.05rem;
+  }
+
+  .project-meta-list {
+    font-size: 0.8rem;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .project-desc-text {
+    font-size: 0.88rem;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 575.98px) {
+  .page-header-banner {
+    padding: 80px 0 40px 0;
+  }
+
+  .page-header-title {
+    font-size: 1.5rem;
+  }
+
+  .page-header-desc {
+    font-size: 0.9rem;
+  }
+
+  .porto-filter-wrapper {
+    margin-top: 0;
+  }
+
+  .project-img-wrapper {
+    height: 200px;
+  }
+
+  .project-badge-tag {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+  }
+}
 </style>
 

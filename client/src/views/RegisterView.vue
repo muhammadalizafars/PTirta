@@ -261,5 +261,132 @@ const handleSubmit = async () => {
   font-size: 0.88rem;
   text-decoration: none;
 }
+
+/* Tablet */
+@media (max-width: 991.98px) {
+  .account-box {
+    padding: 35px 30px;
+  }
+
+  .auth-title {
+    font-size: 1.45rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767.98px) {
+  .account-container {
+    padding: 30px 16px;
+  }
+
+  .account-box {
+    padding: 28px 24px;
+    border-radius: 16px;
+  }
+
+  .auth-header {
+    margin-bottom: 24px;
+  }
+
+  .auth-logo {
+    max-height: 48px;
+    margin-bottom: 12px;
+  }
+
+  .auth-title {
+    font-size: 1.35rem;
+  }
+
+  .auth-subtitle {
+    font-size: 0.82rem;
+  }
+
+  .form-label {
+    font-size: 0.82rem;
+  }
+
+  .form-control-custom {
+    padding: 10px 14px 10px 38px;
+    font-size: 0.88rem;
+  }
+
+  .input-icon-wrapper {
+    left: 12px;
+    font-size: 1rem;
+  }
+
+  .form-check {
+    font-size: 0.9rem;
+  }
+
+  .btn-auth-primary {
+    font-size: 0.92rem;
+    padding: 11px 18px;
+  }
+
+  .auth-divider {
+    margin: 18px 0;
+    font-size: 0.78rem;
+  }
+
+  .auth-back-link {
+    font-size: 0.82rem;
+  }
+
+  .alert {
+    font-size: 0.85rem;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 575.98px) {
+  .account-container {
+    padding: 20px 12px;
+  }
+
+  .account-box {
+    padding: 24px 18px;
+    max-width: 100%;
+  }
+
+  .auth-title {
+    font-size: 1.25rem;
+    margin-bottom: 4px;
+  }
+
+  .auth-subtitle {
+    font-size: 0.78rem;
+  }
+
+  .mb-3 {
+    margin-bottom: 14px !important;
+  }
+
+  .mb-4 {
+    margin-bottom: 16px !important;
+  }
+
+  .form-control-custom {
+    padding: 9px 12px 9px 36px;
+    font-size: 0.85rem;
+  }
+
+  .input-icon-wrapper {
+    left: 10px;
+  }
+
+  .form-check-label {
+    font-size: 0.82rem;
+  }
+
+  .btn-auth-primary {
+    font-size: 0.88rem;
+    padding: 10px 16px;
+  }
+
+  p {
+    font-size: 0.82rem !important;
+  }
+}
 </style>
 

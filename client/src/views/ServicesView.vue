@@ -356,5 +356,184 @@ onMounted(() => {
   align-items: center;
   gap: 8px;
 }
+
+/* Tablet */
+@media (max-width: 991.98px) {
+  .page-header-title {
+    font-size: 2.1rem;
+  }
+
+  .page-header-desc {
+    font-size: 1rem;
+  }
+
+  .page-header-banner {
+    padding: 110px 0 60px 0;
+  }
+
+  .service-filter-wrapper {
+    margin-bottom: 40px;
+  }
+
+  .filter-btn-group {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .filter-btn {
+    padding: 7px 16px;
+    font-size: 0.88rem;
+  }
+
+  .services-main-section {
+    padding: 20px 0 60px 0;
+  }
+
+  .service-item-img {
+    height: 160px;
+  }
+
+  .service-item-body {
+    padding: 18px;
+  }
+
+  .service-title-text {
+    font-size: 1.05rem;
+  }
+
+  .cta-consult-box {
+    padding: 40px 30px;
+  }
+
+  .cta-consult-box h3 {
+    font-size: 1.6rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767.98px) {
+  .page-header-banner {
+    padding: 90px 0 50px 0;
+  }
+
+  .page-header-badge {
+    font-size: 0.78rem;
+    padding: 5px 14px;
+  }
+
+  .page-header-title {
+    font-size: 1.7rem;
+  }
+
+  .page-header-desc {
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+  }
+
+  .breadcrumb-custom {
+    font-size: 0.85rem;
+    padding: 6px 14px;
+  }
+
+  .service-filter-wrapper {
+    margin-top: -15px;
+    margin-bottom: 30px;
+  }
+
+  .filter-btn-group {
+    max-width: 100%;
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 6px 14px;
+    font-size: 0.82rem;
+  }
+
+  .services-main-section {
+    padding: 15px 0 50px 0;
+  }
+
+  .row.g-4 {
+    --bs-gutter-x: 1rem;
+    --bs-gutter-y: 1rem;
+  }
+
+  .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .service-item-img {
+    height: 180px;
+  }
+
+  .service-item-body {
+    padding: 16px;
+  }
+
+  .service-title-text {
+    font-size: 1rem;
+  }
+
+  .service-desc-text {
+    font-size: 0.88rem;
+  }
+
+  .cta-consult-box {
+    padding: 30px 20px;
+    border-radius: 14px;
+    margin-top: 40px;
+  }
+
+  .cta-consult-box h3 {
+    font-size: 1.35rem;
+    margin-bottom: 10px;
+  }
+
+  .cta-consult-box p {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+
+  .btn-cta-contact {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 575.98px) {
+  .page-header-banner {
+    padding: 80px 0 40px 0;
+  }
+
+  .page-header-title {
+    font-size: 1.5rem;
+  }
+
+  .page-header-desc {
+    font-size: 0.9rem;
+  }
+
+  .service-filter-wrapper {
+    margin-top: 0;
+  }
+
+  .cta-consult-box {
+    flex-direction: column;
+  }
+
+  .col-lg-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .btn-cta-contact {
+    width: 100%;
+    justify-content: center;
+  }
+}
 </style>
 
