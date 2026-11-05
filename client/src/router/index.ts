@@ -4,6 +4,8 @@ import ServicesView from '@/views/ServicesView.vue'
 import PortfolioView from '@/views/PortfolioView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
+import ForgotPasswordView from '@/views/ForgotPasswordView.vue'
+import ResetPasswordView from '@/views/ResetPasswordView.vue'
 
 const routes = [
   {
@@ -35,6 +37,18 @@ const routes = [
     name: 'register',
     component: RegisterView,
     meta: { title: 'Daftar Akun - PT. Tirta Rekayasa Konsultan' }
+  },
+  {
+    path: '/forgot-password',
+    name: 'forgot-password',
+    component: ForgotPasswordView,
+    meta: { title: 'Lupa Kata Sandi - PT. Tirta Rekayasa Konsultan' }
+  },
+  {
+    path: '/reset-password/:token',
+    name: 'reset-password',
+    component: ResetPasswordView,
+    meta: { title: 'Atur Ulang Kata Sandi - PT. Tirta Rekayasa Konsultan' }
   },
   {
     path: '/:pathMatch(.*)*',

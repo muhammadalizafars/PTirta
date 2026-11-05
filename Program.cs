@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PTirta.Data;
 using PTirta.Models;
+using PTirta.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,9 @@ builder.Services.AddControllersWithViews();
 // Database Context
 builder.Services.AddDbContext<PTirtaContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+
+// Email service
+builder.Services.AddScoped<IEmailService, MockEmailService>();
 
 // ASP.NET Core Identity
 builder.Services.AddIdentity<Users, IdentityRole>(options =>

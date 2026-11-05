@@ -67,6 +67,36 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  async function forgotPassword(email: string): Promise<AuthResponse> {
+    try {
+      isLoading.value = true
+      error.value = null
+      const response = await apiClient.post<AuthResponse>('/auth/forgot-password', { email })
+      return response.data
+    } catch (err: any) {
+      const msg = err.response?.data?.message || 'Gagal mengirim instruksi reset.'
+      error.value = msg
+      throw new Error(msg)
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  async function resetPassword(token: string, newPassword: string): Promise<AuthResponse> {
+    try {
+      isLoading.value = true
+      error.value = null
+      const response = await apiClient.post<AuthResponse>('/auth/reset-password', { token, email: '', newPassword })
+      return response.data
+    } catch (err: any) {
+      const msg = err.response?.data?.message || 'Gagal mengatur ulang kata sandi.'
+      error.value = msg
+      throw new Error(msg)
+    } finally {
+      isLoading.value = false
+    }
+  }
+
   return {
     user,
     isLoading,
@@ -75,7 +105,9 @@ export const useAuthStore = defineStore('auth', () => {
     checkAuth,
     login,
     register,
-    logout
+    logout,
+    forgotPassword,
+    resetPassword
   }
 })
 

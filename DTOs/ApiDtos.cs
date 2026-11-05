@@ -54,5 +54,17 @@ namespace PTirta.DTOs
         public UserDto? User { get; set; }
         public List<string>? Errors { get; set; }
     }
+
+    public class ForgotPasswordRequestDto
+    {
+        public string Email { get; set; } = string.Empty;
+    }
+
+    public class ResetPasswordRequestDto
+    {
+        public string Token { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string NewPassword { get; set; } = string.Empty;
+    }
 }
 

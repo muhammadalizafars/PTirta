@@ -63,7 +63,7 @@ const handleSubmit = async () => {
           <div class="mb-3">
             <div class="d-flex justify-content-between align-items-center mb-1">
               <label class="form-label mb-0">Kata Sandi</label>
-              <a href="#" class="auth-link" @click.prevent>Lupa sandi?</a>
+              <a href="/forgot-password" class="auth-link" @click.prevent="$router.push('/forgot-password')">Lupa sandi?</a>
             </div>
             <div class="input-group-custom">
               <span class="input-icon-wrapper"><i class="bi bi-lock"></i></span>
